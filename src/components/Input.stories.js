@@ -15,9 +15,13 @@ const Input_Template = (args) => ({
         };
     },
     render() {
-        return {
-
-        }
+        return  <Input  onSendClick={action('Send URL Clicked')} 
+                        onMenuClick={action('Menu Button clicked')} 
+                        onInputClick={action('Input Field Clicked')} 
+                        onMenuMouseOver={action('Menu hovered')} 
+                        onMenuMouseLeave={action('Menu hovered')} 
+                        onSendMouseOver={action('Send hovered')} 
+                        onSendMouseLeave={action('Send hovered')} />
     },
 });
 
