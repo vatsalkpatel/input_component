@@ -56,8 +56,28 @@
         </div>
     </div>
 <!-- Input entry mode -->
-<div class="input_mode">
-</div>
+    <div v-show="input_selected" class="input_mode" :style="{'border': '1px solid '+ yes_button_skin, 'padding': '0px 0px 0px 10px'}">
+        <div class="left-text">
+            <input 
+            @focus="onInputClick" 
+            class="text" 
+            :placeholder="placeholder_title" 
+            v-model="value"/>
+        </div>
+        <div 
+        id="tick-btn" 
+        class="btn" 
+        :style="{'background': yes_button_skin}"
+        @click="onYesClick"> 
+            <i class="fas fa-check">Y</i>
+        </div>
+        <div 
+        id="cancel-btn" 
+        class="btn" 
+        @click="onCancelClick">
+            <i class="fas fa-times">N</i>
+        </div>
+    </div>
 </div>
 </template>
 
@@ -83,10 +103,21 @@ export default {
     },
     methods: {
         onSendClick: function() {
+            if(this.value == ""){
+                this.placeholder_title = "Please Enter";
+            }else if(this.data == this.url_icon){
+                if(!this.validURL()){
+                            this.value = "";
+                            this.placeholder_title = "Invalid URL";
+                        }
+            }
+            else{
             this.left_clicked = false;
             this.right_clicked = !this.right_clicked;
             this.$emit('SendClick');
+            }
         },
+
         onMenuClick: function() {
             this.left_clicked = !this.left_clicked;
             this.$emit('MenuClick');
@@ -136,6 +167,80 @@ export default {
             this.data = this.phone_icon;
             this.left_clicked = false;
             this.input_selected = true;
+        },
+        onYesClick: function() {
+            if(this.value != ""){
+                if(this.data == this.email_icon){
+                    if(!this.validEmailId()){
+                            this.value = "";
+                            this.inputset=false;
+                            this.placeholder_title = "Invalid Email";
+                        }
+                        else{
+                            this.inputset=true;
+                        }
+                }else if(this.data == this.phone_icon){
+                    if(!this.validPhoneNumber()){
+                            this.value = "";
+                            this.inputset=false;
+                            this.placeholder_title = "Invalid Phone Number";
+                        }
+                        else{
+                            this.inputset=true;
+                        }
+                }
+            else if(this.data == this.url_icon){
+                    if(!this.validURL()){
+                            this.value = "";
+                            this.inputset=false;
+                            this.placeholder_title = "Invalid URL";
+                        }
+                        else{
+                            this.inputset=true;
+                        }
+                }
+            }else{
+                this.data=this.url_icon;
+                this.placeholder_title="URL";
+                this.inputset = false;
+            }
+            this.input_selected = false;
+            this.$emit('YesClick');
+        },
+        onCancelClick: function() {
+            this.placeholder_title="URL"
+            this.data=this.url_icon
+            this.input_selected = false; 
+            this.value = '';
+            this.inputset=false;
+            this.$emit('CancelClick');
+        },
+        validPhoneNumber: function(){
+            var phonenoregex = new RegExp("^[0-9]{"+this.phone_number_size+"}$");
+            if(phonenoregex.test(this.value)){
+                return true;
+            }
+            else{
+                return false;
+            }
+        },
+            validURL: function() {
+                var URLregex = /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/ ;
+            if(URLregex.test(this.value)){
+                return true;
+            }
+            else{
+                return false;
+            }
+        },
+        validEmailId: function(){
+            var emailregex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if(emailregex.test(this.value)){
+                return true;
+            }
+            else{
+                return false;
+            }
         },
     },
 }
@@ -326,6 +431,32 @@ export default {
     left: 43px;
   }
 
+.left-text {
+/* www.yahoo.com */
+
+position: static;
+width: 177px;
+height: 24px;
+left: 10px;
+top: 8px;
+
+/* Paragraph 2 16px */
+font-family: Nunito;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* 1) Basic: Fill/500 */
+color: #494C53;
+
+/* Inside Auto Layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+margin: 0px 0px;
+}
 /* Text Box CSS */
   input {
     width: 165px;
@@ -358,6 +489,76 @@ export default {
     left: 219px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
+  }
+
+  /* Tick button CSS */
+  #tick-btn {
+    left: 189px;
+    background: #E74F30;
+    color: white;
+  }
+
+/* Cross button */
+  #cancel-btn  {
+    left: 219px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+/* messase inside Menu */
+  .para {
+    position: static;
+    width: 98px;
+    height: 16px;
+    left: 40px;
+    top: 8px;
+
+    /* Label 11px */
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 16px;
+    /* identical to box height, or 145% */
+
+    /* 1) Basic: Fill/500 */
+    color: #494C53;
+
+
+    /* Inside Auto Layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin: 0px 12px;
+  }
+
+/* Menu Icon CSS */
+  .icon {
+    /* 22) Icons/Page */
+    position: static;
+    display: flex;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    left: 12px;
+    top: 8px;
+    cursor:pointer;
+    
+
+    /* Inside Auto Layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px 12px;
+  }
+  /* Delete Icon */
+  .delete{
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        left: 200px;
+        top: 11px;  
+        z-index: 10;
   }
 
 </style>
