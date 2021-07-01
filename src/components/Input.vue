@@ -86,7 +86,14 @@
 export default {
     name: 'Input',
     props: {
-        
+        url_icon: String,
+        phone_icon: String,
+        email_icon: String,
+        menu_email_text: String,
+        menu_url_text: String,
+        menu_phone_text: String,
+        phone_number_size: Number,
+        yes_button_skin: String,
     },
     data() {
         return {
