@@ -2,7 +2,25 @@
 <!-- main container div having 3 main parts -->
 <div class="container">
     <!-- Left menu mode -->
-    <div class="menu_mode">
+    <div v-show="left_clicked" class="menu_mode">
+        <div class="Cover1">
+            <div class="Cover2">
+                <div @click="onEmailClick" class="email-btn menu-btn">
+                    <div class="icon">E</div>
+                    <p class="para1">Link to Email</p>
+                    </div>
+                <div @click="onURLClick" class="url-btn menu-btn">
+                    <div class="icon">U</div>
+                    <p class="para1">Link to URL</p>
+                    </div>
+                <div @click="onPhoneClick" class="phone-btn menu-btn">
+                    <div class="icon">P</div>
+                    <p class="para1">Link to Phone</p>
+                    </div>
+            </div>
+        </div>
+        <div class="Triangle1">
+        </div>
     </div>
     <!-- Center initial mode -->
     <div class="main_mode">
@@ -100,6 +118,25 @@ export default {
             this.data="U";
             this.placeholder_title="URL";
         },
+        onEmailClick: function() {
+            this.placeholder_title="Email"
+            this.data = this.email_icon;
+            this.left_clicked = false;
+            this.input_selected = true;
+            
+        },
+        onURLClick: function() {
+            this.placeholder_title="URL"
+            this.data = this.url_icon;
+            this.left_clicked = false;
+            this.input_selected = true;
+        },
+        onPhoneClick: function() {
+            this.placeholder_title="Phone"
+            this.data = this.phone_icon;
+            this.left_clicked = false;
+            this.input_selected = true;
+        },
     },
 }
 </script>
@@ -113,6 +150,126 @@ export default {
     width: 407px;
     height: 102px;
 }
+
+/* Triangle CSS */ /* Color */
+.Triangle1{
+    /* 🎨 Color */
+    position: static;
+    width: 0px;
+    height: 0px;
+    border-left: 6px solid white;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    /* width: 12px;
+    height: 6px; */
+    left: calc(50% - 12px/2 + 84px);
+    top: calc(50% - 6px/2 - 3px);
+
+    /* 9) Transparent - 0% */
+    /* background: #FFFFFF;
+    transform: rotate(90deg); */
+
+    /* Inside Auto Layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin: 0px 0px;
+}
+
+/* Left Options menu */ /* Frame 508 */
+.menu_mode {
+    /* Auto Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0px;
+
+    position: absolute;
+    width: 156px;
+    height: 102px;
+    left: 0px;
+    top: 0px;
+    cursor:pointer;
+}
+
+/* Menu Option */
+/* Tooltip/Light/Menu */
+.Cover1 {
+    position: static;
+    width: 150px;
+    height: 102px;
+    left: 0px;
+    top: 0px;
+
+    /* Shadow/light/500 */
+    filter: drop-shadow(0px 2px 8px rgba(40, 41, 61, 0.04)), drop-shadow(0px 16px 24px rgba(96, 97, 112, 0.16));
+
+    /* Inside Auto Layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px 0px;
+}
+
+/* Frame 18 */
+.Cover2{   
+    /* Auto Layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 2.94%;
+    bottom: 2.94%;
+}
+
+/* Menu Button Container CSS */
+  .menu-btn{
+    /* Auto Layout */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    position: static;
+    width: 150px;
+    height: 32px;
+    left: 0px;
+
+    /* 9) Transparent - 0% */
+    background: white;
+
+    /* Inside Auto Layout */
+    flex: none;
+    flex-grow: 0;
+    margin: 0px 0px;
+  }
+
+  .menu-btn:hover {
+      background: #F0F2F6;
+  }
+
+/* Email Menu Btn CSS */ /* Frame 15 */
+  .email-btn {
+    top:0px;
+    border-radius: 8px 8px 0px 0px;
+    order: 0;
+  }
+/* URL Menu Btn CSS */ /* Frame 16 */
+  .url-btn {
+    top: 32px;
+    order: 1;
+  }
+/* Phone Menu Btn CSS */ /* Frame 17 */
+  .phone-btn {
+    top: 64px;
+    order: 2;
+    border-radius: 0px 0px 8px 8px;
+  }
+
 
 /* input main CSS */ /* Frame 532 */
 .main_mode {
