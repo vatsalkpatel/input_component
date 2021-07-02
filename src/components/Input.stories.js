@@ -1,4 +1,6 @@
 import Input from "./Input.vue";
+import { action } from '@storybook/addon-actions'
+import { color } from '@storybook/theming';
 
 export default {
     title: 'Input Storybook',

@@ -6,16 +6,16 @@
         <div class="Cover1">
             <div class="Cover2">
                 <div @click="onEmailClick" class="email-btn menu-btn">
-                    <div class="icon">E</div>
-                    <p class="para1">Link to Email</p>
+                    <div class="icon">{{email_icon}}</div>
+                    <p class="para1">{{menu_email_text}}</p>
                     </div>
                 <div @click="onURLClick" class="url-btn menu-btn">
-                    <div class="icon">U</div>
-                    <p class="para1">Link to URL</p>
+                    <div class="icon">{{url_icon}}</div>
+                    <p class="para1">{{menu_url_text}}</p>
                     </div>
                 <div @click="onPhoneClick" class="phone-btn menu-btn">
-                    <div class="icon">P</div>
-                    <p class="para1">Link to Phone</p>
+                    <div class="icon">{{phone_icon}}</div>
+                    <p class="para1">{{menu_phone_text}}</p>
                     </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
         </div>
     </div>
     <!-- Center initial mode -->
-    <div class="main_mode">
+    <div v-show="!input_selected" class="main_mode">
         <div id="lft-btn" 
             class="btn" 
             @click="onMenuClick" 
@@ -56,7 +56,7 @@
         </div>
     </div>
 <!-- Input entry mode -->
-    <div v-show="input_selected" class="input_mode" :style="{'border': '1px solid '+ yes_button_skin, 'padding': '0px 0px 0px 10px'}">
+    <div v-show="input_selected" class="main_mode" :style="{'border': '1px solid '+ yes_button_skin, 'padding': '0px 0px 0px 10px'}">
         <div class="left-text">
             <input 
             @focus="onInputClick" 
@@ -98,7 +98,7 @@ export default {
     data() {
         return {
             value: "",
-            data:"U",
+            data:this.url_icon,
             inputset: false,
             placeholder_title: "URL",
             left_hovered: false,

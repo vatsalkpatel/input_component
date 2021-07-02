@@ -1,4 +1,4 @@
-# input_component
+# tester
 
 ## Project setup
 ```
