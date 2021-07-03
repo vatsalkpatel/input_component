@@ -3,6 +3,7 @@
 import Input from "./Input.vue";
 import { action } from '@storybook/addon-actions'
 import { color } from '@storybook/theming';
+// import Input1 from "./Input1.js"
 
 export default {
     title: 'Input Storybook',
